@@ -28,19 +28,30 @@ SELECT name FROM users WHERE DATE_FORMAT(birthday_at, '%m') IN ('may', 'august')
 
 -- 5. (по желанию) Из таблицы catalogs извлекаются записи при помощи запроса:
 -- SELECT * FROM catalogs WHERE id IN (5, 1, 2); Отсортируйте записи в порядке, заданном в списке IN.
--- 
--- Так как категория с номер id 5 в моей таблице была ранее удалена,
--- вместо нее используется категория с номер id 3 
-SELECT * FROM catalogs WHERE id IN (3, 1, 2);
 
-SELECT 
-    *
-FROM
-    catalogs WHERE id IN (3, 1, 2) 
+SELECT * FROM
+    catalogs WHERE id IN (5, 1, 2) 
 ORDER BY CASE
-    WHEN id = 3 THEN 0
-    WHEN id = 1 THEN 1
-    WHEN id = 2 THEN 2
+    WHEN id = 5 THEN 1
+    WHEN id = 1 THEN 2
+    WHEN id = 2 THEN 3
 END;
 
--- SELECT* FROM catalogs WHERE id IN (3, 1, 2) ORDER BY FIELD(id, 3, 1, 2); // Вариант от GB
+--Практическое задание теме «Агрегация данных»
+
+--1. Подсчитайте средний возраст пользователей в таблице users
+SELECT ROUND(AVG(TIMESTAMPDIFF(YEAR, birthday_at, NOW())), 0) AS averege_age FROM users;
+
+--2. Подсчитайте количество дней рождения, которые приходятся на каждый из дней недели. Следует учесть, что необходимы дни недели текущего года, а не года рождения
+SELECT
+	DATE_FORMAT(DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(birthday_at), DAY(birthday_at))), '%D') AS day,
+	COUNT(*) AS total
+FROM
+	users
+GROUP BY
+	day
+ORDER BY
+	total;
+	
+--3. (по желанию) Подсчитайте произведение чисел в столбце таблицы.
+SELECT ROUND(exp(SUM(ln(value))), 0) AS factorial FROM integers;
