@@ -13,7 +13,7 @@ CREATE TABLE emploees (
   first_name varchar(100) NOT NULL COMMENT 'Имя пользователя',
   last_name varchar(100) NOT NULL COMMENT 'Фамилия пользователя',
   patronymic varchar(100) DEFAULT NULL COMMENT 'Отчество пользователя',
-  photo_id int(11) UNSIGNED COMMENT 'Внешний ключ, id фотографии пользователя',
+  photo_id int(11) UNSIGNED DEFAULT NULL COMMENT 'Внешний ключ, id фотографии пользователя',
   email varchar(120) NOT NULL UNIQUE KEY COMMENT 'Почта',
   phone varchar(100) NOT NULL UNIQUE KEY COMMENT 'Телефон',
   `password` varchar(100) NOT NULL COMMENT 'Пароль',
