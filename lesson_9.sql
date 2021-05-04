@@ -29,7 +29,7 @@ LIMIT 5;
 DELETE FROM sample
 WHERE id NOT IN (SELECT id FROM the_last_five);
 
-DROP TEMPORARY TABLE limited;
+DROP TEMPORARY TABLE the_last_five;
 
 COMMIT;
 
