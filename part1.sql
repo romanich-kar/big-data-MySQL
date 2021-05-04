@@ -18,7 +18,7 @@ CREATE TABLE emploees (
   phone varchar(100) NOT NULL UNIQUE KEY COMMENT 'Телефон',
   `password` varchar(100) NOT NULL COMMENT 'Пароль',
   created_at datetime DEFAULT current_timestamp() COMMENT 'Время создания строки',
-  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки',
+  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Таблица соискатели';
 CREATE INDEX ind_emploees_name ON emploees(first_name, last_name); -- создаем составной индекс для полей Имя пользователя и Фамилия пользователя
 
@@ -30,7 +30,7 @@ CREATE TABLE `profiles` (
   city varchar(120) DEFAULT NULL COMMENT 'Город проживания',
   country varchar(120) DEFAULT NULL COMMENT 'Страна проживания',
   created_at datetime DEFAULT current_timestamp() COMMENT 'Время создания строки',
-  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки',
+  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Таблица Профили';
 ALTER TABLE `profiles` ADD CONSTRAINT fk_profiles_epmploees FOREIGN KEY (emploee_id) REFERENCES emploees (id); -- добавляем внешний ключ для поля emploee_id
 CREATE INDEX ind_profiles_location ON `profiles`(city, country); -- создаем составной индекс для полей Город проживания и Страна проживания
@@ -61,7 +61,7 @@ CREATE TABLE emploers (
   phone varchar(100) NOT NULL UNIQUE KEY COMMENT 'Телефон компании',
   branch_id smallint(5) unsigned DEFAULT NULL COMMENT 'Отрасль компании, внешний ключ',
   created_at datetime DEFAULT current_timestamp() COMMENT 'Время создания строки',
-  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки',
+  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Таблица Работодатели';
 CREATE INDEX ind_emploers_name ON emploers(name); -- создаем индекс для поля name
 CREATE INDEX ind_emploers_location ON emploers(city, country); -- создаем составной индекс для полей Город расположения компании и Страна расположения компании
@@ -83,7 +83,7 @@ CREATE TABLE branches (
   id smallint(5) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'Идентификатор строки',
   name varchar(150) NOT NULL COMMENT 'Название отрасли',
   created_at datetime DEFAULT current_timestamp() COMMENT 'Время создания строки',
-  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки',
+  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Таблица Отрасли';
   ALTER TABLE emploers ADD CONSTRAINT fk_emploers_branches FOREIGN KEY (branch_id) REFERENCES branches (id); -- добавляем внешний ключ для поля branch_id в таблицу emploers
   
@@ -92,7 +92,7 @@ CREATE TABLE  work_expirience (
   id tinyint(2) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'Идентификатор строки',
   name varchar(100) NOT NULL COMMENT 'Требуемый опыт работы',
   created_at datetime DEFAULT current_timestamp() COMMENT 'Время создания строки',
-  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки',
+  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Таблица Опыт работы';
 
 DROP TABLE IF EXISTS `schedule`;
@@ -100,7 +100,7 @@ CREATE TABLE `schedule` (
   id tinyint(2) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'Идентификатор строки',
   name varchar(150) NOT NULL COMMENT 'Вид графика работы',
   created_at datetime DEFAULT current_timestamp() COMMENT 'Время создания строки',
-  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки',
+  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Таблица График работы';
 
 DROP TABLE IF EXISTS employment_type;
@@ -108,7 +108,7 @@ CREATE TABLE  employment_type (
   id tinyint(2) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'Идентификатор строки',
   name varchar(100) NOT NULL COMMENT 'Тип занятости',
   created_at datetime DEFAULT current_timestamp() COMMENT 'Время создания строки',
-  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки',
+  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Таблица Тип занятости';
 
 DROP TABLE IF EXISTS cv;
@@ -125,7 +125,7 @@ CREATE TABLE cv (
   schedule_id tinyint(2) unsigned DEFAULT NULL COMMENT 'id графика работы, внешний ключ', 
   employment_type_id tinyint(2) unsigned DEFAULT NULL COMMENT 'id типа занятости, внешний ключ',
   created_at datetime DEFAULT current_timestamp() COMMENT 'Время создания строки',
-  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки',
+  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Таблица Резюме';
 ALTER TABLE cv ADD CONSTRAINT fk_cv_photo FOREIGN KEY (photo_id) REFERENCES photo (id); -- добавляем внешний ключ для поля photo_id
 ALTER TABLE cv ADD CONSTRAINT fk_cv_branches FOREIGN KEY (branch_id) REFERENCES branches (id); -- добавляем внешний ключ для поля branch_id
@@ -150,7 +150,7 @@ CREATE TABLE vacancies (
   schedule_id tinyint(2) unsigned DEFAULT NULL COMMENT 'id графика работы, внешний ключ', 
   employment_type_id tinyint(2) unsigned DEFAULT NULL COMMENT 'id типа занятости, внешний ключ',
   created_at datetime DEFAULT current_timestamp() COMMENT 'Время создания строки',
-  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки',
+  updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Таблица Вакансии';
 ALTER TABLE vacancies ADD CONSTRAINT fk_vacancies_logo FOREIGN KEY (logo_id) REFERENCES logo (id); -- добавляем внешний ключ для поля logo_id
 ALTER TABLE vacancies ADD CONSTRAINT fk_vacancies_branches FOREIGN KEY (branch_id) REFERENCES branches (id); -- добавляем внешний ключ для поля branch_id
