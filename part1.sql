@@ -12,7 +12,7 @@ CREATE TABLE emploees (
   id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'Идентификатор строки',
   first_name varchar(100) NOT NULL COMMENT 'Имя пользователя',
   last_name varchar(100) NOT NULL COMMENT 'Фамилия пользователя',
-  patronymic varchar(100) COMMENT DEFAULT NULL 'Отчество пользователя',
+  patronymic varchar(100) DEFAULT NULL COMMENT 'Отчество пользователя',
   photo_id int(11) UNSIGNED COMMENT 'Внешний ключ, id фотографии пользователя',
   email varchar(120) NOT NULL UNIQUE KEY COMMENT 'Почта',
   phone varchar(100) NOT NULL UNIQUE KEY COMMENT 'Телефон',
