@@ -119,7 +119,7 @@ CREATE TABLE cv (
   description text DEFAULT NULL COMMENT 'Текст резюме',
   city varchar(120) DEFAULT NULL COMMENT 'Город поиска работы',
   country varchar(120) DEFAULT NULL COMMENT 'Страна поиска работы',
-  salary varchar (100) DEFAULT NULL COMMENT 'Желаемая зарплата'
+  salary INT DEFAULT NULL COMMENT 'Желаемая зарплата',
   branch_id smallint(5) unsigned DEFAULT NULL COMMENT 'id отрасли компании, внешний ключ',
   work_expirience_id tinyint(2) unsigned DEFAULT NULL COMMENT 'id опыта работы, внешний ключ', 
   schedule_id tinyint(2) unsigned DEFAULT NULL COMMENT 'id графика работы, внешний ключ', 
@@ -144,7 +144,7 @@ CREATE TABLE vacancies (
   description text DEFAULT NULL COMMENT 'Описание вакансии',
   city varchar(120) DEFAULT NULL COMMENT 'Город, где открыта вакансия',
   country varchar(120) DEFAULT NULL COMMENT 'Страна, где открыта вакансия',
-  salary varchar (100) DEFAULT NULL COMMENT 'Предлагаемая зарплата'
+  salary INT DEFAULT NULL COMMENT 'Предлагаемая зарплата',
   branch_id smallint(5) unsigned DEFAULT NULL COMMENT 'id отрасли компании, внешний ключ',
   work_expirience_id tinyint(2) unsigned DEFAULT NULL COMMENT 'id опыта работы, внешний ключ', 
   schedule_id tinyint(2) unsigned DEFAULT NULL COMMENT 'id графика работы, внешний ключ', 
