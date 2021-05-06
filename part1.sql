@@ -211,12 +211,12 @@ CREATE OR REPLACE VIEW emploer AS
   FROM emploers
   ORDER BY name;
     
--- представление для просмотра суммарного предложения и спроса по зарплатам
-CREATE OR REPLACE VIEW salary AS
-  SELECT SUM(salary) AS offer
+-- представление для просмотра максимальной предлагаемой и требуемой зарплаты
+CREATE OR REPLACE VIEW max_salary AS
+  SELECT MAX(salary) AS max_salary
   FROM vacancies
   UNION
-  SELECT SUM(salary) AS demand
+  SELECT MAX(salary)
   FROM cv;
   
   -- Создадим пользователя и наделим его правами просмотра приведенных выше представлений
