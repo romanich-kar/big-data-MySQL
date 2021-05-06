@@ -1,5 +1,6 @@
 -- В этой части приведены команды наполнения созданных ранее таблиц данными.
 
+START TRANSACTION;
 -- Наполняем данными таблицу emploees
 INSERT INTO emploees (id, first_name, last_name, patronymic, photo_id, email, phone, `password`, created_at, updated_at) VALUES (1, 'Nick', 'Grey', NULL, 1, 'schaefer.weldon@example.net', '54785632568', 'sd8vds', '2004-01-19 16:22:32', '2019-04-17 04:57:20');
 INSERT INTO emploees (id, first_name, last_name, patronymic, photo_id, email, phone, `password`, created_at, updated_at) VALUES (2, 'Alex', 'Sapov', 'Fedorovich', 2, 'gfhgr.weldo@example.net', '547876-32568', 'nvdsj*76', '2007-01-20 10:01:33', '2018-04-17 04:55:20');
@@ -181,3 +182,4 @@ INSERT INTO `messages` (`id`, `emploee_id`, `emploer_id`, `content`, `created_at
 INSERT INTO `messages` (`id`, `emploee_id`, `emploer_id`, `content`, `created_at`) VALUES (23, 8, 1, 'Enim est culpa magnam tempore id aut animi.', '2021-01-22 00:16:23');
 INSERT INTO `messages` (`id`, `emploee_id`, `emploer_id`, `content`, `created_at`) VALUES (24, 5, 6, 'Aut dolorum qui magni quibusdam.', '1991-04-06 14:47:25');
 INSERT INTO `messages` (`id`, `emploee_id`, `emploer_id`, `content`, `created_at`) VALUES (25, 1, 1, 'Aut ut nostrum neque.', '2013-05-28 18:55:04');
+COMMIT;
