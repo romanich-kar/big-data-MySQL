@@ -30,18 +30,19 @@ CREATE INDEX ind_media_size ON media(size);
 -- общее количество пользователей в группе
 -- всего пользователей в системе
 -- отношение в процентах (общее количество пользователей в группе / всего пользователей в системе) * 100
-WITH age AS (
-    SELECT DATEDIFF(CURRENT_DATE, birthday) FROM profiles
+WITH ages AS (
+    SELECT user_id, DATEDIFF(CURRENT_DATE, birthday) AS age FROM profiles
     WHERE user_id IN (SELECT user_id FROM communities_users)
     )
-SELECT DISTINCT community_users.user_id, users.first_name, users.last_name
-  AVG(COUNT(*)) OVER w AS average, -- среднее количество пользователей в группах
-  MIN(age) OVER w AS min_age,  -- самый молодой пользователь в группе
-  MAX(age) OVER w AS max_age,  -- самый старший пользователь в группе
+SELECT DISTINCT communities_users.user_id, users.first_name, users.last_name,
+  COUNT(communities_users.user_id) OVER() / (SELECT COUNT(*) FROM communities) AS average, -- среднее количество пользователей в группах
+  FIRST_VALUE(CONCAT_WS(' ', users.first_name, users.last_name)) OVER window_2 AS the_youngest, -- самый молодой пользователь в группе
+  LAST_VALUE(CONCAT_WS(' ', users.first_name, users.last_name)) OVER window_2 AS the_oldest,  -- самый старший пользователь в группе
   COUNT(*) OVER w AS amount,  -- общее количество пользователей в группе
   COUNT(profiles.user_id) OVER(), -- всего пользователей в системе
-  COUNT(*) OVER w AS amount / COUNT(profiles.user_id) OVER() * 100 AS "%%"  -- отношение в процентах (общее количество пользователей в группе / всего пользователей в системе)
+  COUNT(*) OVER w / COUNT(profiles.user_id) OVER() * 100 AS "%%"  -- отношение в процентах (общее количество пользователей в группе / всего пользователей в системе)
 FROM communities_users
 INNER JOIN users
 ON communities_users.user_id = users.id
-WINDOW w AS (PARTITION BY communities_users.community_id);
+window_1 AS (PARTITION BY communities_users.community_id);
+window_2 AS (PARTITION BY communities.id ORDER BY ages.age);
