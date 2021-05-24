@@ -1,21 +1,3 @@
-
-SELECT DISTINCT communities_users.user_id, users.first_name, users.last_name,
-  COUNT(communities_users.user_id) OVER() / (SELECT COUNT(*) FROM communities) AS average, -- среднее количество пользователей в группах
-  FIRST_VALUE(CONCAT_WS(' ', users.first_name, users.last_name)) OVER w_2 AS the_youngest, -- самый молодой пользователь в группе
-  LAST_VALUE(CONCAT_WS(' ', users.first_name, users.last_name)) OVER w_2 AS the_oldest,  -- самый старший пользователь в группе
-  COUNT(*) OVER w_1 AS amount,  -- общее количество пользователей в группе
-  COUNT(users.id) OVER(), -- всего пользователей в системе
-  COUNT(*) OVER w_1 / COUNT(users.id) OVER() * 100 AS "%%"  -- отношение в процентах (общее количество пользователей в группе / всего пользователей в системе)
-FROM communities_users
-INNER JOIN users
-ON communities_users.user_id = users.id
-INNER JOIN communities_users
-ON communities_users.community.id = communities.id
-WINDOW w_1 AS (PARTITION BY communities_users.community_id),
-w_2 AS (PARTITION BY communities.id ORDER BY ages.age);
-
-
-
 WITH t1 as (
   SELECT 
     с.name as community_name,
@@ -34,7 +16,11 @@ WITH t1 as (
   )
 )
 SELECT 
-  COUNT(user_id) OVER() / (SELECT COUNT(*) FROM communities) AS average -- среднее количество пользователей в группах
+   COUNT(user_id) OVER() / (SELECT COUNT(*) FROM communities) AS average, -- среднее количество пользователей в группах
+   MIN(user_age) OVER w AS the_youngest, -- самый молодой пользователь в группе
+   MAX(user_age) OVER w AS the_oldest, -- самый старший пользователь в группе
+   COUNT(user_id) OVER w AS amount, -- общее количество пользователей в группе
+   COUNT(user_id) OVER() AS Total, -- общее количество пользователей в группе
+   COUNT(user_id) OVER w / COUNT(user_id) OVER()*100 AS '%%'  -- отношение в процентах (общее количество пользователей в группе / всего пользователей в системе)
 FROM t1
 WINDOW w AS (PARTITION BY community_id);
-
