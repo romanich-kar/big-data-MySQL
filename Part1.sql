@@ -16,7 +16,7 @@ CREATE TABLE emploees (
   photo_id int(11) UNSIGNED COMMENT 'Внешний ключ, id фотографии пользователя',
   email varchar(120) NOT NULL UNIQUE KEY COMMENT 'Почта',
   phone varchar(100) NOT NULL UNIQUE KEY COMMENT 'Телефон',
-  `password` varchar(100) NOT NULL COMMENT 'Пароль',
+  password varchar(100) NOT NULL COMMENT 'Пароль',
   created_at datetime DEFAULT current_timestamp() COMMENT 'Время создания строки',
   updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Время обновления строки'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Таблица соискатели';
@@ -201,7 +201,7 @@ CREATE TABLE messages (
 CREATE OR REPLACE VIEW users AS 
   SELECT (e.first_name, e.last_name, e.photo_id, p.gender, p.birthday, p.city, p.country) 
     FROM emploees e
-       LEFT JOIN `profiles` p
+       LEFT JOIN profiles p
        ON emploees.id = profiles.emploee_id
     ORDER BY (e.last_name, e.first_name);
      
